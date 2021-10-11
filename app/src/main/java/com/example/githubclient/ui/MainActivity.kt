@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app.router.newRootScreen(Screens.usersList())
+
+        if (savedInstanceState == null) {
+            app.router.newRootScreen(Screens.usersList())
+        }
     }
 }
