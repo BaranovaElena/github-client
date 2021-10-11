@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -37,6 +38,12 @@ android {
 }
 
 dependencies {
+    //moxy
+    implementation "com.github.moxy-community:moxy:2.2.2"
+    kapt "com.github.moxy-community:moxy-compiler:2.2.2"
+    implementation "com.github.moxy-community:moxy-ktx:2.2.2"
+    implementation "com.github.moxy-community:moxy-androidx:2.2.2"
+
     //recycler view
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 

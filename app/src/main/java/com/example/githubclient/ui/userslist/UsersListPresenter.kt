@@ -4,20 +4,20 @@ import com.example.githubclient.domain.impl.UsersRepoDummyImpl
 import com.example.githubclient.domain.model.UserEntity
 import com.example.githubclient.domain.repo.UsersRepo
 
-class UsersListPresenter : UsersListContract.Presenter {
-    private var view: UsersListContract.View? = null
+class UsersListPresenter : UsersListContract.Presenter() {
     private val repo: UsersRepo = UsersRepoDummyImpl()
 
-    override fun onAttach(view: UsersListContract.View) {
-        this.view = view
-    }
-
-    override fun onDetach() {
-        this.view = null
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        setUsers()
     }
 
     override fun onViewCreated() {
+        setUsers()
+    }
+
+    private fun setUsers() {
         val list: List<UserEntity> = repo.getUsers()
-        view?.showUsersList(list)
+        viewState.showUsersList(list)
     }
 }
