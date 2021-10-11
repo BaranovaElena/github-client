@@ -23,11 +23,7 @@ class UsersListPresenter(private val router: Router) : UsersListContract.Present
         viewState.showUsersList(list)
     }
 
-    override fun onUserItemClicked() {
-        router.navigateTo(Screens.userDetail())
-    }
-
-    override fun onBackPressed() {
-        router.exit()
+    override fun onUserItemClicked(user: UserEntity) {
+        router.navigateTo(Screens.userDetail(user))
     }
 }

@@ -42,7 +42,7 @@ class UsersListAdapter(
         fun bind(user: UserEntity) {
             binding.userItemLoginTextView.text = user.name
             card.setOnClickListener {
-                presenter.onUserItemClicked()
+                presenter.onUserItemClicked(user)
             }
         }
     }
