@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="users_list_title_text_size">26sp</dimen>
+    <dimen name="margin_default">8dp</dimen>
+    <dimen name="user_item_login_text_size">20sp</dimen>
+</resources>
