@@ -13,13 +13,9 @@
         android:textStyle="bold"
         android:textSize="@dimen/users_list_title_text_size"/>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/users_list_recycler_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
-    <TextView
-        android:id="@+id/users_list_text_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/users_list_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

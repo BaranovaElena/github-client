@@ -18,10 +18,6 @@ class UsersListPresenter : UsersListContract.Presenter {
 
     override fun onViewCreated() {
         val list: List<UserEntity> = repo.getUsers()
-        var logins = ""
-        for (user in list) {
-            logins = logins + user.name + "\n"
-        }
-        view?.showLoginsAsString(logins)
+        view?.showUsersList(list)
     }
 }
