@@ -2,6 +2,7 @@ package com.example.githubclient.ui.userslist
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubclient.R
@@ -29,5 +30,9 @@ class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_users_list), Us
 
     override fun showUsersList(list: List<UserEntity>) {
         adapter.updateList(list)
+    }
+
+    override fun showError(msg: String) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
     }
 }

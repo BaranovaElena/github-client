@@ -7,7 +7,6 @@ import com.example.githubclient.ui.Screens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 class UsersListPresenter(private val router: Router) : UsersListContract.Presenter() {
     private val repo: UsersRepo = UsersRepoDummyImpl()
@@ -26,7 +25,10 @@ class UsersListPresenter(private val router: Router) : UsersListContract.Present
         compositeDisposable.add(
             repo.users
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { viewState.showUsersList(it) }
+                .subscribe(
+                    {users -> viewState.showUsersList(users)},
+                    {throwable -> viewState.showError(throwable.message.toString())}
+                )
         )
     }
 

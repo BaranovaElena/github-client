@@ -3,7 +3,7 @@ package com.example.githubclient.domain.impl
 import com.example.githubclient.domain.model.UserEntity
 import com.example.githubclient.domain.repo.UsersRepo
 import io.reactivex.Observable
-import java.util.concurrent.TimeUnit
+import io.reactivex.subjects.BehaviorSubject
 
 class UsersRepoDummyImpl : UsersRepo {
     private val usersList = listOf(
@@ -18,9 +18,8 @@ class UsersRepoDummyImpl : UsersRepo {
         UserEntity("login9"),
         UserEntity("login10")
     )
+    private val behaviorSubject = BehaviorSubject.createDefault(usersList)
 
     override val users: Observable<List<UserEntity>>
-        get() = Observable
-            .interval(1000, TimeUnit.MILLISECONDS)
-            .map { usersList }
+        get() = behaviorSubject
 }
