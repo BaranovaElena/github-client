@@ -5,9 +5,11 @@ import com.example.githubclient.domain.model.UserEntity
 import com.example.githubclient.domain.repo.UsersRepo
 import com.example.githubclient.ui.Screens
 import com.github.terrakok.cicerone.Router
+import io.reactivex.disposables.Disposable
 
 class UsersListPresenter(private val router: Router) : UsersListContract.Presenter() {
     private val repo: UsersRepo = UsersRepoDummyImpl()
+    private var disposable: Disposable? = null
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -19,11 +21,18 @@ class UsersListPresenter(private val router: Router) : UsersListContract.Present
     }
 
     private fun setUsers() {
-        val list: List<UserEntity> = repo.getUsers()
-        viewState.showUsersList(list)
+        disposable = repo.users.subscribe {
+            viewState.showUsersList(it)
+        }
     }
 
     override fun onUserItemClicked(user: UserEntity) {
         router.navigateTo(Screens.userDetail(user))
+    }
+
+    override fun onDestroy() {
+        disposable?.takeIf { !it.isDisposed }?.dispose()
+        disposable = null
+        super.onDestroy()
     }
 }

@@ -1,7 +1,8 @@
 package com.example.githubclient.domain.repo
 
 import com.example.githubclient.domain.model.UserEntity
+import io.reactivex.Observable
 
 interface UsersRepo {
-    fun getUsers() : List<UserEntity>
+    val users: Observable<List<UserEntity>>
 }
