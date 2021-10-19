@@ -24,7 +24,12 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.userDetailNameValue.text =
+        binding.userDetailNameValueTextView.text =
             arguments?.getParcelable<UserEntity>(BUNDLE_EXTRA_KEY)?.name ?: UserEntity().name
+        binding.userDetailRatingValueTextView.text =
+            arguments?.getParcelable<UserEntity>(BUNDLE_EXTRA_KEY)?.rating.toString()
+
+        binding.userDetailLikeTextView.setOnClickListener {  }
+        binding.userDetailDislikeTextView.setOnClickListener {  }
     }
 }

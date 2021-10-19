@@ -41,6 +41,7 @@ class UsersListAdapter(
 
         fun bind(user: UserEntity) {
             binding.userItemLoginTextView.text = user.name
+            binding.userItemRatingValueTextView.text = user.rating.toString()
             card.setOnClickListener {
                 presenter.onUserItemClicked(user)
             }
