@@ -1,11 +1,14 @@
 package com.example.githubclient.domain.impl
 
+import com.example.githubclient.domain.bus.DislikeEvent
+import com.example.githubclient.domain.bus.LikeEvent
+import com.example.githubclient.domain.bus.RatingEventBus
 import com.example.githubclient.domain.model.UserEntity
 import com.example.githubclient.domain.repo.UsersRepo
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
-class UsersRepoDummyImpl : UsersRepo {
+class UsersRepoDummyImpl(ratingBus: RatingEventBus) : UsersRepo {
     private val usersList = listOf(
         UserEntity("login1"),
         UserEntity("login2"),
@@ -22,4 +25,18 @@ class UsersRepoDummyImpl : UsersRepo {
 
     override val users: Observable<List<UserEntity>>
         get() = behaviorSubject
+
+    init {
+        ratingBus.get().subscribe {
+            when (it) {
+                is LikeEvent -> {
+                    usersList[usersList.indexOf(it.user)].rating++
+                }
+                is DislikeEvent -> {
+                    usersList[usersList.indexOf(it.user)].rating--
+                }
+            }
+            behaviorSubject.onNext(usersList)
+        }
+    }
 }

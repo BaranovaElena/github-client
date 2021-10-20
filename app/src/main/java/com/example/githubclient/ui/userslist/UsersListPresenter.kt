@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.userslist
 
+import com.example.githubclient.domain.bus.RatingEventBus
 import com.example.githubclient.domain.impl.UsersRepoDummyImpl
 import com.example.githubclient.domain.model.UserEntity
 import com.example.githubclient.domain.repo.UsersRepo
@@ -8,8 +9,9 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
-class UsersListPresenter(private val router: Router) : UsersListContract.Presenter() {
-    private val repo: UsersRepo = UsersRepoDummyImpl()
+class UsersListPresenter(private val router: Router, ratingBus: RatingEventBus) :
+    UsersListContract.Presenter() {
+    private val repo: UsersRepo = UsersRepoDummyImpl(ratingBus)
     private var compositeDisposable = CompositeDisposable()
 
     override fun onFirstViewAttach() {
@@ -26,8 +28,8 @@ class UsersListPresenter(private val router: Router) : UsersListContract.Present
             repo.users
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {users -> viewState.showUsersList(users)},
-                    {throwable -> viewState.showError(throwable.message.toString())}
+                    { users -> viewState.showUsersList(users) },
+                    { throwable -> viewState.showError(throwable.message.toString()) }
                 )
         )
     }
