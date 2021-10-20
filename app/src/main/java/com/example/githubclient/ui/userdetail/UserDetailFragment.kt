@@ -2,6 +2,7 @@ package com.example.githubclient.ui.userdetail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUserDetailBinding
@@ -46,5 +47,9 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
 
     override fun showDislikeCount(count: Int) {
         binding.userDetailDislikeTextView.text = "$count"
+    }
+
+    override fun showRating(rating: Int) {
+        binding.userDetailRatingValueTextView.text = rating.toString()
     }
 }

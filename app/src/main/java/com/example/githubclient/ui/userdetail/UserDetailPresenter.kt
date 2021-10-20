@@ -5,17 +5,19 @@ import com.example.githubclient.domain.bus.LikeEvent
 import com.example.githubclient.domain.bus.RatingEventBus
 import com.example.githubclient.domain.model.UserEntity
 
-class UserDetailPresenter(private val ratingBus: RatingEventBus): UserDetailContract.Presenter() {
+class UserDetailPresenter(private val ratingBus: RatingEventBus) : UserDetailContract.Presenter() {
     private var likeCounter = 0
     private var dislikeCounter = 0
 
     override fun onLikeClicked(user: UserEntity) {
         viewState.showLikeCount(++likeCounter)
         ratingBus.post(LikeEvent(user))
+        viewState.showRating(user.rating)
     }
 
     override fun onDislikeClicked(user: UserEntity) {
         viewState.showDislikeCount(++dislikeCounter)
         ratingBus.post(DislikeEvent(user))
+        viewState.showRating(user.rating)
     }
 }
