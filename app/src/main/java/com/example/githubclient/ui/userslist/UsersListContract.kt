@@ -15,7 +15,6 @@ class UsersListContract {
     }
 
     abstract class Presenter : MvpPresenter<View>() {
-        abstract fun onViewCreated()
         abstract fun onUserItemClicked(user: UserEntity)
     }
 }

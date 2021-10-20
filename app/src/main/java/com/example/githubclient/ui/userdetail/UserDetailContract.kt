@@ -19,5 +19,6 @@ class UserDetailContract {
     abstract class Presenter: MvpPresenter<View>() {
         abstract fun onLikeClicked(user: UserEntity)
         abstract fun onDislikeClicked(user: UserEntity)
+        abstract fun onViewCreated(currentUserName: String)
     }
 }
