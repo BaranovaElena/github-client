@@ -3,6 +3,7 @@ package com.example.githubclient.ui.userdetail
 import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUserDetailBinding
 import com.example.githubclient.domain.model.UserEntity
@@ -38,6 +39,10 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
 
         binding.userDetailNameValueTextView.text = currentUser.githubEntity.login
         binding.userDetailRatingValueTextView.text = currentUser.rating.toString()
+        Glide.with(binding.userDetailAvatarImageView.context)
+            .load(currentUser.githubEntity.avatarUrl)
+            .circleCrop()
+            .into(binding.userDetailAvatarImageView)
 
         binding.userDetailLikeTextView.setOnClickListener { presenter.onLikeClicked(currentUser) }
         binding.userDetailDislikeTextView.setOnClickListener { presenter.onDislikeClicked(currentUser) }

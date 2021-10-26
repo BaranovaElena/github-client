@@ -7,4 +7,7 @@
     <dimen name="user_detail_title_text_size">26sp</dimen>
     <dimen name="user_detail_value_text_size">20sp</dimen>
     <dimen name="user_item_rating_text_size">18sp</dimen>
+    <dimen name="user_card_avatar_dimen">50dp</dimen>
+    <dimen name="user_card_avatar_padding">5dp</dimen>
+    <dimen name="user_detail_avatar_dimen">200dp</dimen>
 </resources>
