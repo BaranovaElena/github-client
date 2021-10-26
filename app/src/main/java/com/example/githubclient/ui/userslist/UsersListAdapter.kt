@@ -40,7 +40,7 @@ class UsersListAdapter(
         private val card = itemView as CardView
 
         fun bind(user: UserEntity) {
-            binding.userItemLoginTextView.text = user.name
+            binding.userItemLoginTextView.text = user.githubEntity.login
             binding.userItemRatingValueTextView.text = user.rating.toString()
             card.setOnClickListener {
                 presenter.onUserItemClicked(user)

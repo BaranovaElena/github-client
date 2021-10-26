@@ -34,9 +34,9 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
         super.onViewCreated(view, savedInstanceState)
 
         val currentUser = arguments?.getParcelable(BUNDLE_EXTRA_KEY) ?: UserEntity()
-        presenter.onViewCreated(currentUser.name)
+        presenter.onViewCreated(currentUser.githubEntity.login)
 
-        binding.userDetailNameValueTextView.text = currentUser.name
+        binding.userDetailNameValueTextView.text = currentUser.githubEntity.login
         binding.userDetailRatingValueTextView.text = currentUser.rating.toString()
 
         binding.userDetailLikeTextView.setOnClickListener { presenter.onLikeClicked(currentUser) }

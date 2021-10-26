@@ -17,7 +17,7 @@ class UserDetailPresenter(private val ratingBus: RatingEventBus, private val rep
     private var compositeDisposable = CompositeDisposable()
 
     override fun onViewCreated(currentUserName: String) {
-        compositeDisposable.add(
+        /*compositeDisposable.add(
             repo.users
                 .subscribeOn(Schedulers.io())
                 .doOnNext { Log.d("@@@", "repo.users.onNext detail " + Thread.currentThread().name) }
@@ -25,13 +25,13 @@ class UserDetailPresenter(private val ratingBus: RatingEventBus, private val rep
                 .subscribe { users ->
                     kotlin.run {
                         for (item in users) {
-                            if (item.name == currentUserName) {
+                            if (item.login == currentUserName) {
                                 viewState.showRating(item.rating)
                             }
                         }
                     }
                 }
-        )
+        )*/
     }
 
     override fun onLikeClicked(user: UserEntity) {
