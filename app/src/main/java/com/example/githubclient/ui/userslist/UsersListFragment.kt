@@ -12,9 +12,12 @@ import com.example.githubclient.ui.app
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_users_list), UsersListContract.View {
+class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_users_list),
+    UsersListContract.View {
     private val binding by viewBinding(FragmentUsersListBinding::bind)
-    private val presenter by moxyPresenter { UsersListPresenter(requireActivity().app.router) }
+    private val presenter by moxyPresenter {
+        UsersListPresenter(requireActivity().app.router, requireActivity().app.repo)
+    }
     private val adapter: UsersListAdapter by lazy { UsersListAdapter(presenter) }
 
     companion object {

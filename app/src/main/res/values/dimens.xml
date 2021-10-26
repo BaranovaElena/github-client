@@ -4,6 +4,7 @@
     <dimen name="margin_default">8dp</dimen>
     <dimen name="user_item_login_text_size">20sp</dimen>
     <dimen name="user_card_padding">8dp</dimen>
-    <dimen name="user_detail_name_title_text_size">26sp</dimen>
-    <dimen name="user_detail_name_value_text_size">20sp</dimen>
+    <dimen name="user_detail_title_text_size">26sp</dimen>
+    <dimen name="user_detail_value_text_size">20sp</dimen>
+    <dimen name="user_item_rating_text_size">18sp</dimen>
 </resources>
