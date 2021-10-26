@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/margin_default"
+    android:orientation="vertical"
+    tools:context=".ui.userdetail.UserDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/user_detail_name_title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/user_detail_name_title_text"
+            android:textSize="@dimen/user_detail_title_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/user_detail_name_value_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/user_detail_value_text_size"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/user_detail_rating_title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/user_detail_rating_title_text"
+            android:textSize="@dimen/user_detail_title_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/user_detail_rating_value_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/user_detail_value_text_size"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/user_detail_like_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_thumb_up"
+            android:drawableTint="@color/like_icon_color"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="@dimen/user_detail_value_text_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/user_detail_dislike_text_view"
+            app:layout_constraintVertical_chainStyle="spread_inside"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/user_detail_dislike_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_thumb_down"
+            android:drawableTint="@color/dislike_icon_color"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="@dimen/user_detail_value_text_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/user_detail_like_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

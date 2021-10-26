@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GitHub Client</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="users_list_title">GitHub clients</string>
+    <string name="user_detail_name_title_text">User Name:</string>
+    <string name="user_item_rating_title_text">Rating: </string>
+    <string name="user_detail_rating_title_text">Rating: </string>
 </resources>
