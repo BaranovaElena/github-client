@@ -2,9 +2,12 @@ package com.example.githubclient
 
 import android.app.Application
 import com.example.githubclient.domain.bus.RatingEventBus
-import com.example.githubclient.domain.impl.UsersRepoRetrofitImpl
-import com.example.githubclient.domain.impl.UsersRetrofitService
-import com.example.githubclient.domain.repo.UsersRepo
+import com.example.githubclient.domain.repo.repos.ReposRepo
+import com.example.githubclient.domain.repo.repos.ReposRepoRetrofitImpl
+import com.example.githubclient.domain.repo.repos.ReposRetrofitService
+import com.example.githubclient.domain.repo.users.UsersRepoRetrofitImpl
+import com.example.githubclient.domain.repo.users.UsersRetrofitService
+import com.example.githubclient.domain.repo.users.UsersRepo
 import com.github.terrakok.cicerone.Cicerone
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,7 +22,7 @@ class App : Application() {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl(BuildConfig.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -27,6 +30,10 @@ class App : Application() {
     private val usersService: UsersRetrofitService by lazy {
         retrofit.create(UsersRetrofitService::class.java)
     }
+    private val reposService: ReposRetrofitService by lazy {
+        retrofit.create(ReposRetrofitService::class.java)
+    }
 
-    val repo: UsersRepo = UsersRepoRetrofitImpl(usersService)
+    val usersRepo: UsersRepo = UsersRepoRetrofitImpl(usersService)
+    val reposRepo: ReposRepo = ReposRepoRetrofitImpl(reposService)
 }

@@ -5,6 +5,9 @@ plugins {
     id 'kotlin-kapt'
 }
 
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+
 android {
     compileSdk 30
 
@@ -34,6 +37,10 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+    buildTypes.each {
+        it.buildConfigField "String", "API_BASE_URL", "\"" + localProperties['API_BASE_URL'] + "\""
     }
 }
 

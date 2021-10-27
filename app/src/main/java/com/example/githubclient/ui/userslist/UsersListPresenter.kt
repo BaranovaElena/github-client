@@ -1,18 +1,12 @@
 package com.example.githubclient.ui.userslist
 
-import android.util.Log
-import com.example.githubclient.domain.impl.UsersRepoRetrofitImpl
-import com.example.githubclient.domain.model.GithubUserEntity
 import com.example.githubclient.domain.model.UserEntity
-import com.example.githubclient.domain.repo.UsersRepo
+import com.example.githubclient.domain.repo.users.UsersRepo
 import com.example.githubclient.ui.Screens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class UsersListPresenter(private val router: Router, private val repo: UsersRepo) :
     UsersListContract.Presenter() {

@@ -4,10 +4,15 @@
     <dimen name="margin_default">8dp</dimen>
     <dimen name="user_item_login_text_size">20sp</dimen>
     <dimen name="user_card_padding">8dp</dimen>
-    <dimen name="user_detail_title_text_size">26sp</dimen>
+    <dimen name="user_detail_title_text_size">22sp</dimen>
     <dimen name="user_detail_value_text_size">20sp</dimen>
     <dimen name="user_item_rating_text_size">18sp</dimen>
     <dimen name="user_card_avatar_dimen">50dp</dimen>
     <dimen name="user_card_avatar_padding">5dp</dimen>
     <dimen name="user_detail_avatar_dimen">200dp</dimen>
+    <dimen name="repo_item_name_text_size">18sp</dimen>
+    <dimen name="repo_detail_name_text_size">24sp</dimen>
+    <dimen name="repo_detail_title_text_size">20sp</dimen>
+    <dimen name="repo_detail_value_text_size">16sp</dimen>
+    <dimen name="values_layout_padding">3dp</dimen>
 </resources>
