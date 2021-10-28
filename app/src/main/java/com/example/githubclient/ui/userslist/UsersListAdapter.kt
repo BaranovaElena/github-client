@@ -41,9 +41,9 @@ class UsersListAdapter(
         private val card = itemView as CardView
 
         fun bind(user: UserEntity) {
-            binding.userItemLoginTextView.text = user.githubEntity.login
+            binding.userItemLoginTextView.text = user.githubUser.login
             Glide.with(binding.userItemAvatarImageView.context)
-                .load(user.githubEntity.avatarUrl)
+                .load(user.githubUser.avatarUrl)
                 .circleCrop()
                 .into(binding.userItemAvatarImageView)
             binding.userItemRatingValueTextView.text = user.rating.toString()

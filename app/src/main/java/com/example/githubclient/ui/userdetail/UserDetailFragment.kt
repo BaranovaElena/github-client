@@ -20,7 +20,8 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
         UserDetailPresenter(
             requireActivity().app.router,
             requireActivity().app.ratingBus,
-            requireActivity().app.reposRepo
+            requireActivity().app.reposRepo,
+            requireActivity().app.ratingRepo
         )
     }
     private val adapter: ReposListAdapter by lazy { ReposListAdapter(presenter) }
@@ -39,13 +40,13 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
         super.onViewCreated(view, savedInstanceState)
 
         val currentUser = arguments?.getParcelable(BUNDLE_EXTRA_KEY) ?: UserEntity()
-        presenter.onViewCreated(currentUser.githubEntity.reposUrl)
+        presenter.onViewCreated(currentUser.githubUser)
 
-        binding.userDetailNameTextView.text = currentUser.githubEntity.login
-        binding.userDetailHtmlTextView.text = currentUser.githubEntity.htmlUrl
+        binding.userDetailNameTextView.text = currentUser.githubUser.login
+        binding.userDetailHtmlTextView.text = currentUser.githubUser.htmlUrl
         binding.userDetailRatingTextView.text = currentUser.rating.toString()
         Glide.with(binding.userDetailAvatarImageView.context)
-            .load(currentUser.githubEntity.avatarUrl)
+            .load(currentUser.githubUser.avatarUrl)
             .circleCrop()
             .into(binding.userDetailAvatarImageView)
 

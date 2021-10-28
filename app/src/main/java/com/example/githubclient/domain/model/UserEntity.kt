@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserEntity(
-    val githubEntity: GithubUserEntity = GithubUserEntity(),
+    val githubUser: GithubUserEntity = GithubUserEntity(),
     var rating: Int = 0
 ) : Parcelable

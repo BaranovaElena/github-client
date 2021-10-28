@@ -4,7 +4,9 @@ import com.example.githubclient.domain.bus.DislikeEvent
 import com.example.githubclient.domain.bus.LikeEvent
 import com.example.githubclient.domain.bus.RatingEventBus
 import com.example.githubclient.domain.model.GithubRepoEntity
+import com.example.githubclient.domain.model.GithubUserEntity
 import com.example.githubclient.domain.model.UserEntity
+import com.example.githubclient.domain.repo.rating.RatingRepo
 import com.example.githubclient.domain.repo.repos.ReposRepo
 import com.example.githubclient.ui.Screens
 import com.github.terrakok.cicerone.Router
@@ -16,16 +18,16 @@ import io.reactivex.schedulers.Schedulers
 class UserDetailPresenter(
     private val router: Router,
     private val ratingBus: RatingEventBus,
-    private val repo: ReposRepo
+    private val reposRepo: ReposRepo,
+    private val ratingRepo: RatingRepo
 ) :
     UserDetailContract.Presenter() {
     private var likeCounter = 0
     private var dislikeCounter = 0
     private var compositeDisposable = CompositeDisposable()
 
-
     private fun loadRepos(url: String) {
-        val disposable: Disposable = repo.getRepos(url)
+        val disposable: Disposable = reposRepo.getRepos(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { repos ->
@@ -35,27 +37,31 @@ class UserDetailPresenter(
                     repo.updatedAt = repo.updatedAt.replace('T', ' ')
                     repo.updatedAt = repo.updatedAt.removeSuffix("Z")
                 }
-                viewState.showReposList(repos) }
+                viewState.showReposList(repos)
+            }
         compositeDisposable.add(disposable)
     }
 
-    override fun onViewCreated(reposUrl: String) {
-        loadRepos(reposUrl)
-        /*compositeDisposable.add(
-            repo.users
+    override fun onViewCreated(githubUser: GithubUserEntity) {
+        loadRepos(githubUser.reposUrl)
+        loadRating(githubUser.login)
+    }
+
+    private fun loadRating(login: String) {
+        compositeDisposable.add(
+            ratingRepo.rating
                 .subscribeOn(Schedulers.io())
-                .doOnNext { Log.d("@@@", "repo.users.onNext detail " + Thread.currentThread().name) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { users ->
+                .subscribe { ratings ->
                     kotlin.run {
-                        for (item in users) {
-                            if (item.login == currentUserName) {
+                        for (item in ratings) {
+                            if (item.login == login) {
                                 viewState.showRating(item.rating)
                             }
                         }
                     }
                 }
-        )*/
+        )
     }
 
     override fun onRepoItemClicked(repo: GithubRepoEntity) {

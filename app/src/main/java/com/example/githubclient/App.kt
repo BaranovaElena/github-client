@@ -2,6 +2,8 @@ package com.example.githubclient
 
 import android.app.Application
 import com.example.githubclient.domain.bus.RatingEventBus
+import com.example.githubclient.domain.repo.rating.RatingRepo
+import com.example.githubclient.domain.repo.rating.RatingRepoDummyImpl
 import com.example.githubclient.domain.repo.repos.ReposRepo
 import com.example.githubclient.domain.repo.repos.ReposRepoRetrofitImpl
 import com.example.githubclient.domain.repo.repos.ReposRetrofitService
@@ -19,6 +21,7 @@ class App : Application() {
     val navigatorHolder get() = cicerone.getNavigatorHolder()
 
     val ratingBus = RatingEventBus
+    val ratingRepo: RatingRepo = RatingRepoDummyImpl(ratingBus)
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()

@@ -16,7 +16,11 @@ class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_users_list),
     UsersListContract.View {
     private val binding by viewBinding(FragmentUsersListBinding::bind)
     private val presenter by moxyPresenter {
-        UsersListPresenter(requireActivity().app.router, requireActivity().app.usersRepo)
+        UsersListPresenter(
+            requireActivity().app.router,
+            requireActivity().app.usersRepo,
+            requireActivity().app.ratingRepo
+        )
     }
     private val adapter: UsersListAdapter by lazy { UsersListAdapter(presenter) }
 
