@@ -11,7 +11,6 @@
     <string name="repo_detail_url_title">Html url:</string>
     <string name="repo_detail_created_title">Created: </string>
     <string name="repo_detail_updated_title">Updated: </string>
-    <string name="repo_detail_language_title">Lang: </string>
     <string name="repo_detail_forks_title">Forks: </string>
     <string name="repo_detail_stars_title">Stars: </string>
 </resources>

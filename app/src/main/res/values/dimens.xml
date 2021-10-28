@@ -15,4 +15,6 @@
     <dimen name="repo_detail_title_text_size">20sp</dimen>
     <dimen name="repo_detail_value_text_size">16sp</dimen>
     <dimen name="values_layout_padding">3dp</dimen>
+    <dimen name="margin_blocks">16dp</dimen>
+    <dimen name="repo_detail_icons_dimen">30dp</dimen>
 </resources>
