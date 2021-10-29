@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.userslist
 
+import com.example.githubclient.domain.model.RatingEntity
 import com.example.githubclient.domain.model.UserEntity
 import com.example.githubclient.domain.repo.rating.RatingRepo
 import com.example.githubclient.domain.repo.users.UsersRepo
@@ -21,7 +22,6 @@ class UsersListPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         setUsers()
-        setRating()
     }
 
     private fun setRating() {
@@ -32,11 +32,16 @@ class UsersListPresenter(
                 .subscribe { ratings ->
                     kotlin.run {
                         for (user in usersList) {
+                            var newUser = true
                             for (item in ratings) {
                                 if (item.login == user.githubUser.login) {
                                     user.rating = item.rating
+                                    newUser = false
                                     break
                                 }
+                            }
+                            if (newUser) {
+                                ratingRepo.putNewUser(RatingEntity(user.githubUser.login))
                             }
                         }
                         viewState.showUsersList(usersList)

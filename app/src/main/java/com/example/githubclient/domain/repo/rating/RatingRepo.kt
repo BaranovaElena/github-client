@@ -5,4 +5,5 @@ import io.reactivex.Observable
 
 interface RatingRepo {
     val rating: Observable<List<RatingEntity>>
+    fun putNewUser(rating: RatingEntity)
 }

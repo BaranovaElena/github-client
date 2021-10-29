@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 private const val BUS_DELAY = 2L
 
 class RatingRepoDummyImpl(ratingBus: RatingEventBus) : RatingRepo {
-    private val ratingList = listOf(
+    private var ratingList = mutableListOf(
         RatingEntity("mojombo", 5),
         RatingEntity("defunkt", 5),
         RatingEntity("pjhyett", 5),
@@ -24,10 +24,15 @@ class RatingRepoDummyImpl(ratingBus: RatingEventBus) : RatingRepo {
         RatingEntity("wayneeseguin", 5),
         RatingEntity("brynary", 5)
     )
-    private val behaviorSubject = BehaviorSubject.createDefault(ratingList)
+
+    private val behaviorSubject = BehaviorSubject.createDefault<List<RatingEntity>>(ratingList)
 
     override val rating: Observable<List<RatingEntity>>
         get() = behaviorSubject
+
+    override fun putNewUser(rating: RatingEntity) {
+        ratingList.add(rating)
+    }
 
     init {
         ratingBus.get()
