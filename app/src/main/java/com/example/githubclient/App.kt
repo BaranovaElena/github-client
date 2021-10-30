@@ -3,15 +3,14 @@ package com.example.githubclient
 import android.app.Application
 import androidx.room.Room
 import com.example.githubclient.domain.bus.RatingEventBus
+import com.example.githubclient.domain.repo.NetworkConnectionStatus
 import com.example.githubclient.domain.repo.rating.RatingDb
 import com.example.githubclient.domain.repo.rating.RatingRepo
 import com.example.githubclient.domain.repo.rating.RatingRepoRoomImpl
 import com.example.githubclient.domain.repo.repos.ReposRepo
 import com.example.githubclient.domain.repo.repos.ReposRepoRetrofitImpl
 import com.example.githubclient.domain.repo.repos.ReposRetrofitService
-import com.example.githubclient.domain.repo.users.UsersRepoRetrofitImpl
-import com.example.githubclient.domain.repo.users.UsersRetrofitService
-import com.example.githubclient.domain.repo.users.UsersRepo
+import com.example.githubclient.domain.repo.users.*
 import com.github.terrakok.cicerone.Cicerone
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,13 +21,20 @@ class App : Application() {
     val router get() = cicerone.router
     val navigatorHolder get() = cicerone.getNavigatorHolder()
 
-    private lateinit var db: RatingDb
     lateinit var ratingRepo: RatingRepo
+    lateinit var usersRepo: UsersRepo
 
     override fun onCreate() {
         super.onCreate()
-        db = Room.databaseBuilder(this, RatingDb::class.java, "rating.db").build()
-        ratingRepo = RatingRepoRoomImpl(ratingBus, db.ratingDao())
+        val ratingDb = Room.databaseBuilder(this, RatingDb::class.java, "rating.db").build()
+        ratingRepo = RatingRepoRoomImpl(ratingBus, ratingDb.ratingDao())
+
+        val usersDb = Room.databaseBuilder(this, UsersDb::class.java, "users.db").build()
+
+        val usersRoomRepo = UsersRepoRoom(usersDb.usersDao())
+        val usersWebRepo = UsersRepoRetrofitImpl(usersService)
+        val connectionStatus = NetworkConnectionStatus(applicationContext)
+        usersRepo = UsersRepoCombinedImpl(connectionStatus, usersWebRepo, usersRoomRepo)
     }
 
     private val retrofit: Retrofit by lazy {
@@ -46,6 +52,5 @@ class App : Application() {
     }
     val ratingBus = RatingEventBus
 
-    val usersRepo: UsersRepo = UsersRepoRetrofitImpl(usersService)
     val reposRepo: ReposRepo = ReposRepoRetrofitImpl(reposService)
 }
