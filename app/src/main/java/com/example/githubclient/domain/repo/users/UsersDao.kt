@@ -11,7 +11,7 @@ interface UsersDao {
     fun getUsersList(): Observable<List<GithubUserEntity>>
 
     @Insert
-    fun put(userEntity: GithubUserEntity) : Completable
+    fun put(users: List<GithubUserEntity>) : Completable
 
     @Query("DELETE FROM users")
     fun clear() : Completable

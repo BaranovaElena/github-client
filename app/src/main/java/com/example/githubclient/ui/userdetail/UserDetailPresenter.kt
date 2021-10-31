@@ -30,15 +30,20 @@ class UserDetailPresenter(
         val disposable: Disposable = reposRepo.getRepos(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { repos ->
-                for (repo in repos) {
-                    repo.createdAt = repo.createdAt.replace('T', ' ')
-                    repo.createdAt = repo.createdAt.removeSuffix("Z")
-                    repo.updatedAt = repo.updatedAt.replace('T', ' ')
-                    repo.updatedAt = repo.updatedAt.removeSuffix("Z")
-                }
-                viewState.showReposList(repos)
-            }
+            .subscribe (
+                { repos ->
+                    for (repo in repos) {
+                        repo.createdAt = repo.createdAt.replace('T', ' ')
+                        repo.createdAt = repo.createdAt.removeSuffix("Z")
+                        repo.updatedAt = repo.updatedAt.replace('T', ' ')
+                        repo.updatedAt = repo.updatedAt.removeSuffix("Z")
+                    }
+                    viewState.showReposList(repos)
+                },
+                {
+                    viewState.showReposList(emptyList())
+                    viewState.showLoadRepoError(it.message)
+                })
         compositeDisposable.add(disposable)
     }
 

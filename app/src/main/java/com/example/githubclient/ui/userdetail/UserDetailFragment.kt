@@ -2,6 +2,7 @@ package com.example.githubclient.ui.userdetail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -71,5 +72,9 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
 
     override fun showReposList(list: List<GithubRepoEntity>) {
         adapter.updateList(list)
+    }
+
+    override fun showLoadRepoError(message: String?) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

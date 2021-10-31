@@ -18,6 +18,8 @@ class UserDetailContract {
         fun showRating(rating: Int)
         @AddToEndSingle
         fun showReposList(list: List<GithubRepoEntity>)
+        @Skip
+        fun showLoadRepoError(message: String?)
     }
 
     abstract class Presenter: MvpPresenter<View>() {

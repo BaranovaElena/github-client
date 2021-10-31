@@ -1,5 +1,6 @@
 package com.example.githubclient.domain.repo.users
 
+import android.util.Log
 import com.example.githubclient.domain.model.GithubUserEntity
 import com.example.githubclient.domain.repo.NetworkConnectionStatus
 import io.reactivex.Observable
@@ -17,8 +18,12 @@ class UsersRepoCombinedImpl(
                 .flatMap { isOnline ->
                     if (isOnline) {
                         webRepo.users.doOnNext {
+                            Log.d("@@@", "webRepo.users.doOnNext")
                             roomRepo.clearData()
-                            roomRepo.putNewUsers(it)
+                                .subscribeOn(Schedulers.io())
+                                .doOnComplete {
+                                    roomRepo.putNewUsers(it)
+                                }.subscribe()
                         }
                     } else {
                         roomRepo.users
