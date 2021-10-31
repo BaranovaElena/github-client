@@ -1,6 +1,5 @@
 package com.example.githubclient.domain.repo.users
 
-import android.util.Log
 import com.example.githubclient.domain.model.GithubUserEntity
 import io.reactivex.Completable
 import io.reactivex.Observable

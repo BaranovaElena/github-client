@@ -32,7 +32,7 @@ class App : Application() {
         val usersDb = Room.databaseBuilder(this, UsersDb::class.java, "users.db").build()
 
         val usersRoomRepo = UsersRepoRoom(usersDb.usersDao())
-        val usersWebRepo = UsersRepoRetrofitImpl(usersService)
+        val usersWebRepo = UsersRepoRetrofit(usersService)
         val connectionStatus = NetworkConnectionStatus(applicationContext)
         usersRepo = UsersRepoCombinedImpl(connectionStatus, usersWebRepo, usersRoomRepo)
     }

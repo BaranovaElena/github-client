@@ -21,7 +21,11 @@ class UsersRepoDummyImpl : UsersRepo {
         GithubUserEntity("login10")
     )
     private val behaviorSubject = BehaviorSubject.createDefault(usersList)
+    private val sourceSubject = BehaviorSubject.createDefault(DataSource.DUMMY_SOURCE)
 
     override val users: Observable<List<GithubUserEntity>>
         get() = behaviorSubject.delay(USERS_OBSERVABLE_DELAY, TimeUnit.SECONDS)
+
+    override val source: Observable<DataSource>
+        get() = sourceSubject
 }

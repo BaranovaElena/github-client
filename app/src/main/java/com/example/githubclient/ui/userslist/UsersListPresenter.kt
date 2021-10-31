@@ -65,6 +65,15 @@ class UsersListPresenter(
                     { throwable -> viewState.showError(throwable.message.toString()) }
                 )
         )
+        compositeDisposable.add(
+            usersRepo.source
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { source -> viewState.showWarning(source) },
+                    { throwable -> viewState.showError(throwable.message.toString()) }
+                )
+        )
     }
 
     override fun onUserItemClicked(user: UserEntity) {
