@@ -9,15 +9,16 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import org.koin.java.KoinJavaComponent.inject
 
 class UsersListPresenter(
     private val router: Router,
-    private val usersRepo: UsersRepo,
-    private val ratingRepo: RatingRepo
+    private val usersRepo: UsersRepo
 ) : UsersListContract.Presenter() {
     private var compositeDisposable = CompositeDisposable()
-    private val usersList: MutableList<UserEntity> =
-        emptyList<UserEntity>().toMutableList()
+    private val usersList: MutableList<UserEntity> = emptyList<UserEntity>().toMutableList()
+
+    private val ratingRepo: RatingRepo by inject(RatingRepo::class.java)
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

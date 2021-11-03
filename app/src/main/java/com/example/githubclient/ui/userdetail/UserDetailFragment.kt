@@ -17,13 +17,7 @@ import moxy.ktx.moxyPresenter
 class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
     UserDetailContract.View {
     private val binding by viewBinding(FragmentUserDetailBinding::bind)
-    private val presenter by moxyPresenter {
-        UserDetailPresenter(
-            requireActivity().app.router,
-            requireActivity().app.ratingBus,
-            requireActivity().app.ratingRepo
-        )
-    }
+    private val presenter by moxyPresenter { UserDetailPresenter(requireActivity().app.router) }
     private val adapter: ReposListAdapter by lazy { ReposListAdapter(presenter) }
 
     companion object {

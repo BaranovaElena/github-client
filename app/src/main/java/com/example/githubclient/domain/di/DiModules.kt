@@ -1,6 +1,11 @@
 package com.example.githubclient.domain.di
 
+import androidx.room.Room
 import com.example.githubclient.BuildConfig
+import com.example.githubclient.domain.bus.RatingEventBus
+import com.example.githubclient.domain.repo.rating.RatingDb
+import com.example.githubclient.domain.repo.rating.RatingRepo
+import com.example.githubclient.domain.repo.rating.RatingRepoRoomImpl
 import com.example.githubclient.domain.repo.repos.ReposRepo
 import com.example.githubclient.domain.repo.repos.ReposRepoRetrofitImpl
 import com.example.githubclient.domain.repo.repos.ReposRetrofitService
@@ -24,4 +29,12 @@ val retrofitModule = module {
 
     single { get<Retrofit>().create(UsersRetrofitService::class.java) }
     single { UsersRepoRetrofit(get()) }
+}
+
+val ratingModule = module {
+    single { RatingEventBus }
+
+    single { Room.databaseBuilder(get(), RatingDb::class.java, "rating.db").build() }
+    single { get<RatingDb>().ratingDao() }
+    single<RatingRepo> { RatingRepoRoomImpl(get(), get()) }
 }
