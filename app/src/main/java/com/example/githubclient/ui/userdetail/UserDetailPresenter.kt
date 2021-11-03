@@ -16,7 +16,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.koin.java.KoinJavaComponent.inject
 
-class UserDetailPresenter(private val router: Router) : UserDetailContract.Presenter() {
+
+class UserDetailPresenter : UserDetailContract.Presenter() {
     private var likeCounter = 0
     private var dislikeCounter = 0
     private var compositeDisposable = CompositeDisposable()
@@ -24,6 +25,7 @@ class UserDetailPresenter(private val router: Router) : UserDetailContract.Prese
     private val reposRepo: ReposRepo by inject(ReposRepo::class.java)
     private val ratingBus: RatingEventBus by inject(RatingEventBus::class.java)
     private val ratingRepo: RatingRepo by inject(RatingRepo::class.java)
+    private val router: Router by inject(Router::class.java)
 
     private fun loadRepos(url: String) {
         val disposable: Disposable = reposRepo.getRepos(url)

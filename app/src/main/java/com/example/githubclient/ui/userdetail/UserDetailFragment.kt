@@ -10,14 +10,13 @@ import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUserDetailBinding
 import com.example.githubclient.domain.model.GithubRepoEntity
 import com.example.githubclient.domain.model.UserEntity
-import com.example.githubclient.ui.app
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
     UserDetailContract.View {
     private val binding by viewBinding(FragmentUserDetailBinding::bind)
-    private val presenter by moxyPresenter { UserDetailPresenter(requireActivity().app.router) }
+    private val presenter by moxyPresenter { UserDetailPresenter() }
     private val adapter: ReposListAdapter by lazy { ReposListAdapter(presenter) }
 
     companion object {

@@ -11,14 +11,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.koin.java.KoinJavaComponent.inject
 
-class UsersListPresenter(
-    private val router: Router,
-    private val usersRepo: UsersRepo
-) : UsersListContract.Presenter() {
+class UsersListPresenter() : UsersListContract.Presenter() {
     private var compositeDisposable = CompositeDisposable()
     private val usersList: MutableList<UserEntity> = emptyList<UserEntity>().toMutableList()
 
     private val ratingRepo: RatingRepo by inject(RatingRepo::class.java)
+    private val usersRepo: UsersRepo by inject(UsersRepo::class.java)
+    private val router: Router by inject(Router::class.java)
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
