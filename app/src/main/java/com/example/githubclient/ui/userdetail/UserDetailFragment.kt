@@ -21,7 +21,6 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
         UserDetailPresenter(
             requireActivity().app.router,
             requireActivity().app.ratingBus,
-            requireActivity().app.reposRepo,
             requireActivity().app.ratingRepo
         )
     }

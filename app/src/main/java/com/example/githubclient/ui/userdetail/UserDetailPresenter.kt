@@ -14,17 +14,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.koin.java.KoinJavaComponent.inject
 
 class UserDetailPresenter(
     private val router: Router,
     private val ratingBus: RatingEventBus,
-    private val reposRepo: ReposRepo,
     private val ratingRepo: RatingRepo
 ) :
     UserDetailContract.Presenter() {
     private var likeCounter = 0
     private var dislikeCounter = 0
     private var compositeDisposable = CompositeDisposable()
+    private val reposRepo: ReposRepo by inject(ReposRepo::class.java)
 
     private fun loadRepos(url: String) {
         val disposable: Disposable = reposRepo.getRepos(url)
