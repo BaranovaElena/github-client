@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.userdetail
 
+import com.example.githubclient.App
 import com.example.githubclient.domain.bus.DislikeEvent
 import com.example.githubclient.domain.bus.LikeEvent
 import com.example.githubclient.domain.bus.RatingEventBus
@@ -14,18 +15,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.koin.java.KoinJavaComponent.inject
-
+import javax.inject.Inject
 
 class UserDetailPresenter : UserDetailContract.Presenter() {
     private var likeCounter = 0
     private var dislikeCounter = 0
     private var compositeDisposable = CompositeDisposable()
 
-    private val reposRepo: ReposRepo by inject(ReposRepo::class.java)
-    private val ratingBus: RatingEventBus by inject(RatingEventBus::class.java)
-    private val ratingRepo: RatingRepo by inject(RatingRepo::class.java)
-    private val router: Router by inject(Router::class.java)
+    @Inject lateinit var reposRepo: ReposRepo
+    @Inject lateinit var ratingBus: RatingEventBus
+    @Inject lateinit var ratingRepo: RatingRepo
+    @Inject lateinit var router: Router
 
     private fun loadRepos(url: String) {
         val disposable: Disposable = reposRepo.getRepos(url)
@@ -49,6 +49,8 @@ class UserDetailPresenter : UserDetailContract.Presenter() {
     }
 
     override fun onViewCreated(githubUser: GithubUserEntity) {
+        App.instance.daggerAppComponent.inject(this)
+
         loadRepos(githubUser.reposUrl)
         loadRating(githubUser.login)
     }

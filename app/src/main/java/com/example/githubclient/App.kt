@@ -1,19 +1,25 @@
 package com.example.githubclient
 
 import android.app.Application
-import com.example.githubclient.domain.di.navModule
-import com.example.githubclient.domain.di.retrofitModule
-import com.example.githubclient.domain.di.ratingModule
-import com.example.githubclient.domain.di.usersModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import com.example.githubclient.domain.di.*
 
 class App : Application() {
+
+    companion object {
+        lateinit var instance: App
+        private set
+    }
+
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidContext(this@App)
-            modules(retrofitModule, ratingModule, usersModule, navModule)
-        }
+        instance = this
+    }
+
+    val daggerAppComponent: AppComponent by lazy {
+        DaggerAppComponent
+            .builder()
+            .ratingModule(RatingModule(this))
+            .usersModule(UsersModule(this))
+            .build()
     }
 }

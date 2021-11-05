@@ -6,12 +6,13 @@ import com.example.githubclient.R
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val navigator by lazy { AppNavigator(this, R.id.main_container) }
-    private val router: Router by inject()
-    private val navigatorHolder: NavigatorHolder by inject()
+
+    @Inject lateinit var router: Router
+    @Inject lateinit var navigatorHolder: NavigatorHolder
 
     override fun onResumeFragments() {
         super.onResumeFragments()
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        app.daggerAppComponent.inject(this)
 
         if (savedInstanceState == null) {
             router.newRootScreen(Screens.usersList())

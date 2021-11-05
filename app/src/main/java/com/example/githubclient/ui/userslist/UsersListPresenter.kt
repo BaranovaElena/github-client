@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.userslist
 
+import com.example.githubclient.App
 import com.example.githubclient.domain.model.RatingEntity
 import com.example.githubclient.domain.model.UserEntity
 import com.example.githubclient.domain.repo.rating.RatingRepo
@@ -9,18 +10,19 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import org.koin.java.KoinJavaComponent.inject
+import javax.inject.Inject
 
-class UsersListPresenter() : UsersListContract.Presenter() {
+class UsersListPresenter : UsersListContract.Presenter() {
     private var compositeDisposable = CompositeDisposable()
     private val usersList: MutableList<UserEntity> = emptyList<UserEntity>().toMutableList()
 
-    private val ratingRepo: RatingRepo by inject(RatingRepo::class.java)
-    private val usersRepo: UsersRepo by inject(UsersRepo::class.java)
-    private val router: Router by inject(Router::class.java)
+    @Inject lateinit var ratingRepo: RatingRepo
+    @Inject lateinit var usersRepo: UsersRepo
+    @Inject lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        App.instance.daggerAppComponent.inject(this)
         setUsers()
     }
 
