@@ -9,6 +9,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/user_item_avatar_image_view"
+            android:layout_width="@dimen/user_card_avatar_dimen"
+            android:layout_height="@dimen/user_card_avatar_dimen"
+            android:padding="@dimen/user_card_avatar_padding" />
+
         <TextView
             android:id="@+id/user_item_login_text_view"
             android:layout_width="0dp"

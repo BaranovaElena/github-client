@@ -6,4 +6,14 @@
     <string name="user_detail_name_title_text">User Name:</string>
     <string name="user_item_rating_title_text">Rating: </string>
     <string name="user_detail_rating_title_text">Rating: </string>
+    <string name="user_detail_html_title_text">Html url: </string>
+    <string name="user_detail_repos_title_text">Repositories: </string>
+    <string name="repo_detail_url_title">Html url:</string>
+    <string name="repo_detail_created_title">Created: </string>
+    <string name="repo_detail_updated_title">Updated: </string>
+    <string name="repo_detail_forks_title">Forks: </string>
+    <string name="repo_detail_stars_title">Stars: </string>
+    <string name="source_warning_dummy">Warning! Dummy source of data</string>
+    <string name="source_warning_database">Warning! Data may be out of date</string>
+    <string name="source_warning_unknown">Warning! Unknown source of data</string>
 </resources>

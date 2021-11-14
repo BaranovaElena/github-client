@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.example.githubclient.R
 import com.example.githubclient.databinding.UserItemBinding
 import com.example.githubclient.domain.model.UserEntity
@@ -40,7 +41,11 @@ class UsersListAdapter(
         private val card = itemView as CardView
 
         fun bind(user: UserEntity) {
-            binding.userItemLoginTextView.text = user.name
+            binding.userItemLoginTextView.text = user.githubUser.login
+            Glide.with(binding.userItemAvatarImageView.context)
+                .load(user.githubUser.avatarUrl)
+                .circleCrop()
+                .into(binding.userItemAvatarImageView)
             binding.userItemRatingValueTextView.text = user.rating.toString()
             card.setOnClickListener {
                 presenter.onUserItemClicked(user)
