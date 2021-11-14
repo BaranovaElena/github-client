@@ -2,6 +2,7 @@ package com.example.githubclient.ui.userdetail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -9,21 +10,13 @@ import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUserDetailBinding
 import com.example.githubclient.domain.model.GithubRepoEntity
 import com.example.githubclient.domain.model.UserEntity
-import com.example.githubclient.ui.app
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
     UserDetailContract.View {
     private val binding by viewBinding(FragmentUserDetailBinding::bind)
-    private val presenter by moxyPresenter {
-        UserDetailPresenter(
-            requireActivity().app.router,
-            requireActivity().app.ratingBus,
-            requireActivity().app.reposRepo,
-            requireActivity().app.ratingRepo
-        )
-    }
+    private val presenter by moxyPresenter { UserDetailPresenter() }
     private val adapter: ReposListAdapter by lazy { ReposListAdapter(presenter) }
 
     companion object {
@@ -71,5 +64,9 @@ class UserDetailFragment : MvpAppCompatFragment(R.layout.fragment_user_detail),
 
     override fun showReposList(list: List<GithubRepoEntity>) {
         adapter.updateList(list)
+    }
+
+    override fun showLoadRepoError(message: String?) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

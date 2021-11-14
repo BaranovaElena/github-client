@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.userdetail
 
+import com.example.githubclient.App
 import com.example.githubclient.domain.bus.DislikeEvent
 import com.example.githubclient.domain.bus.LikeEvent
 import com.example.githubclient.domain.bus.RatingEventBus
@@ -14,35 +15,42 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class UserDetailPresenter(
-    private val router: Router,
-    private val ratingBus: RatingEventBus,
-    private val reposRepo: ReposRepo,
-    private val ratingRepo: RatingRepo
-) :
-    UserDetailContract.Presenter() {
+class UserDetailPresenter : UserDetailContract.Presenter() {
     private var likeCounter = 0
     private var dislikeCounter = 0
     private var compositeDisposable = CompositeDisposable()
+
+    @Inject lateinit var reposRepo: ReposRepo
+    @Inject lateinit var ratingBus: RatingEventBus
+    @Inject lateinit var ratingRepo: RatingRepo
+    @Inject lateinit var router: Router
 
     private fun loadRepos(url: String) {
         val disposable: Disposable = reposRepo.getRepos(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { repos ->
-                for (repo in repos) {
-                    repo.createdAt = repo.createdAt.replace('T', ' ')
-                    repo.createdAt = repo.createdAt.removeSuffix("Z")
-                    repo.updatedAt = repo.updatedAt.replace('T', ' ')
-                    repo.updatedAt = repo.updatedAt.removeSuffix("Z")
-                }
-                viewState.showReposList(repos)
-            }
+            .subscribe (
+                { repos ->
+                    for (repo in repos) {
+                        repo.createdAt = repo.createdAt.replace('T', ' ')
+                        repo.createdAt = repo.createdAt.removeSuffix("Z")
+                        repo.updatedAt = repo.updatedAt.replace('T', ' ')
+                        repo.updatedAt = repo.updatedAt.removeSuffix("Z")
+                    }
+                    viewState.showReposList(repos)
+                },
+                {
+                    viewState.showReposList(emptyList())
+                    viewState.showLoadRepoError(it.message)
+                })
         compositeDisposable.add(disposable)
     }
 
     override fun onViewCreated(githubUser: GithubUserEntity) {
+        App.instance.daggerAppComponent.inject(this)
+
         loadRepos(githubUser.reposUrl)
         loadRating(githubUser.login)
     }
